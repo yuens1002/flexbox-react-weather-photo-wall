@@ -1,0 +1,55 @@
+import { useState } from 'react';
+import { getWeather } from '../../API/openWeather';
+import { getPhotos } from '../../API/unsplashAPI';
+import './Query.css';
+
+export default function Query({ setWeatherData }) {
+  const [location, setLocation] = useState('');
+  const [placeholderText, setPlaceholderText] = useState('a US city');
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setPlaceholderText(location);
+    setLocation('');
+
+    const { main, weather, name } = await getWeather(location);
+    // setWeather({
+    //   name,
+    //   temp: main.temp,
+    //   summary: apiWeather[0].description,
+    //   imgSrc: `http://openweathermap.org/img/wn/${apiWeather[0].icon}.png}`,
+    // });
+    getPhotos(`${name}, ${weather[0].description}, day`).then((res) => {
+      console.log('🚀 ~ file: Query.js ~ line 26 ~ getPhotos ~ res', res);
+      const { user, urls, description, id } = res[0];
+      setWeatherData((oldVal) => [
+        {
+          user,
+          urls,
+          description,
+          name,
+          id,
+          temp: main.temp,
+          summary: weather[0].description,
+          imgSrc: `http://openweathermap.org/img/wn/${weather[0].icon}.png`,
+        },
+        ...oldVal,
+      ]);
+    });
+  }
+  function handleInputChange(event) {
+    console.log('event: ', event.target.value);
+    setLocation(event.target.value);
+  }
+  return (
+    <form onSubmit={handleSubmit} className='query' autoComplete='off'>
+      <input
+        placeholder={placeholderText}
+        className='query-input'
+        type='text'
+        value={location}
+        onChange={handleInputChange}
+      />
+    </form>
+  );
+}

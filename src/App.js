@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
+import WeatherGrid from './components/WeatherGrid/WeatherGrid';
+import Query from './components/Query/Query';
 
 function App() {
+  const [weatherData, setWeatherData] = useState([]);
+  const [containerStyle, setContainerStyle] = useState({});
+
+  useEffect(() => {
+    function getStyles() {
+      return weatherData.length === 0
+        ? {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            height: '100vh',
+          }
+        : {};
+    }
+    setContainerStyle(getStyles());
+  }, [weatherData.length]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container' style={containerStyle}>
+      <div className='heading'>
+        <div>The weather in</div>
+        <div>
+          <Query setWeatherData={setWeatherData} />
+        </div>
+        <div>is like?</div>
+      </div>
+      {weatherData.length > 0 && <WeatherGrid weatherData={weatherData} />}
     </div>
   );
 }

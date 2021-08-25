@@ -1,0 +1,19 @@
+.query {
+  padding: 0 12px;
+  display: inline-block;
+}
+
+.query-input {
+    font-size: 2rem;
+    text-align: center;
+    font-style: italic;
+    padding: 10px;
+    width: 250px;
+    box-sizing: border-box;
+    background-color: rgba(230, 43, 43, 0.25);
+    border: none;
+    border-radius: 2px;
+    margin: 10px auto;
+    transition:background-color 0.5s ease;
+
+  }

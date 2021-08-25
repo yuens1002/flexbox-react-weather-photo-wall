@@ -1,0 +1,20 @@
+.grid-item {
+  -ms-flex: auto;
+  /* flex basis looks at the initial width of the  */
+  flex: 1 33.3%;
+  position: relative;
+  /* 6 + 6 */
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+@media(max-width: 814px) {
+  .grid-item {
+    flex-basis: 50%;
+  }
+ }
+ @media(max-width: 553px) {
+  .grid-item {
+    flex-basis: 100%;
+  }
+ }
