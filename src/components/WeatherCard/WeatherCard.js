@@ -22,7 +22,6 @@ export default function WeatherCard(props) {
   }
 
   useWindowSize();
-  console.log(props.photo.name, size);
 
   // cardStyle =
   //   //  1080/2
