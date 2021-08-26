@@ -3,7 +3,7 @@ import { createApi } from 'unsplash-js';
 const accessKey = process.env['REACT_APP_UPSPLASH_ACCESS_TOKEN'];
 
 const api = createApi({ accessKey });
-let options = { orientation: 'landscape', per_page: 3 };
+let options = { orientation: 'landscape', per_page: 1 };
 export function getPhotos(query) {
   // console.log('api called');
   options = { ...options, query };
