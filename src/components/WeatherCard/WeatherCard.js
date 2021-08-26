@@ -8,6 +8,7 @@ export default function WeatherCard(props) {
   const initialState = { cardStyle: {}, size: '' };
 
   function getStyles(size) {
+    console.log(props.photo.name, size);
     return size.slice(0, -2) >= 537 ? { flexFlow: 'row nowrap' } : {};
   }
 

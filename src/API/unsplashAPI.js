@@ -11,10 +11,22 @@ export function getPhotos(query) {
     .getPhotos(options)
     .then((res) => {
       // the api returns errors like an OK response
-      if (res.status === 401) {
+      if (res.type === 'error') {
         throw Error(res.errors[0]);
       }
       return res.response.results;
+    })
+    .catch((e) => console.log(e));
+}
+
+export function getRandom() {
+  return api.photos
+    .getRandom({ query: 'bright background' })
+    .then((res) => {
+      if (res.type === 'error') {
+        throw Error(res.errors[0]);
+      }
+      return res;
     })
     .catch((e) => console.log(e));
 }

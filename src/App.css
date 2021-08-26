@@ -1,10 +1,35 @@
  /* scale is set with multiples of 4 */
 
 .container {
+  height: 100vh;
+  position: relative;
   max-width: 1080px;
   margin: 0 auto;
   /* 6 + 6 */
   padding: 6px;
+}
+
+.background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.65);
+}
+
+.credits {
+  z-index: 1000;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
 }
 
 .heading {

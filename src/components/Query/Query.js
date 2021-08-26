@@ -5,7 +5,7 @@ import './Query.css';
 
 export default function Query({ setWeatherData }) {
   const [location, setLocation] = useState('');
-  const [placeholderText, setPlaceholderText] = useState('a US city');
+  const [placeholderText, setPlaceholderText] = useState('(enter) a US city');
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -13,12 +13,7 @@ export default function Query({ setWeatherData }) {
     setLocation('');
 
     const theWeather = (await getWeather(location)) || {};
-    // setWeather({
-    //   name,
-    //   temp: main.temp,
-    //   summary: apiWeather[0].description,
-    //   imgSrc: `http://openweathermap.org/img/wn/${apiWeather[0].icon}.png}`,
-    // });
+
     const notFound = Object.keys(theWeather).length === 0;
     notFound && setPlaceholderText('sorry, nothing found!');
     if (!notFound) {
@@ -26,8 +21,9 @@ export default function Query({ setWeatherData }) {
       getPhotos(`${name}, ${weather[0].description}, day`).then((res) => {
         console.log('🚀 ~ file: Query.js ~ line 26 ~ getPhotos ~ res', res);
         const { user, urls, description, id } = res[0] || {};
-        setWeatherData((oldVal) => [
-          {
+        setWeatherData({
+          type: 'updateWeatherData',
+          payload: {
             user,
             urls,
             description,
@@ -37,8 +33,7 @@ export default function Query({ setWeatherData }) {
             summary: weather[0].description,
             imgSrc: `http://openweathermap.org/img/wn/${weather[0].icon}.png`,
           },
-          ...oldVal,
-        ]);
+        });
       });
     }
   }
