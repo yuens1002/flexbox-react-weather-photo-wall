@@ -10,5 +10,5 @@
 
 - [ ] user selectable theme color from a random set of color combinations
 - [ ] update background photo at a set interval
-- [ ] rearrange cards on the page
-- [ ] delete a card of the screen
+- [ ] allow users to rearrange weather card(s)
+- [ ] delete a weather card
