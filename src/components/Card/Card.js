@@ -1,7 +1,7 @@
 import './Card.css';
 
 export default function Card({
-  photo: { user, urls, description, temp, name, summary, imgSrc },
+  cardData: { user, urls, description, temp, name, summary },
   cardStyle,
 }) {
   return (

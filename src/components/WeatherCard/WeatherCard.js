@@ -1,34 +1,14 @@
 import React, { useReducer, useLayoutEffect, useEffect, useRef } from 'react';
 import Card from '../Card/Card';
 import './WeatherCard.css';
+import { WeatherCardReducer as reducer } from '../../reducers';
 
 export default function WeatherCard(props) {
   const gridItem = useRef(0);
-
-  const initialState = { cardStyle: {}, size: '' };
-
-  function getStyles(size) {
-    console.log(props.photo.name, size);
-    return size.slice(0, -2) >= 537 ? { flexFlow: 'row nowrap' } : {};
-  }
-
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'updateCardSize':
-        return {
-          ...state,
-          cardSize: window.getComputedStyle(gridItem.current).width,
-        };
-      case 'updateCardStyle':
-        return { ...state, cardStyle: getStyles(state.cardSize) };
-      default:
-        return state;
-    }
-  }
-
+  const initialState = { cardStyle: {}, cardSize: '', gridItem };
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // watch for changes from screen resize to update card size that will trigger a cardStyle state change
+  // watch for screen resize to update card size
   useLayoutEffect(() => {
     function updateCardSize() {
       dispatch({ type: 'updateCardSize' });

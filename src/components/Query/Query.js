@@ -3,7 +3,8 @@ import { getWeather } from '../../API/openWeather';
 import { getPhotos } from '../../API/unsplashAPI';
 import './Query.css';
 
-export default function Query({ setWeatherData }) {
+export default function Query({ dispatchWeatherData }) {
+  console.log('rendering Query...');
   const [location, setLocation] = useState('');
   const [placeholderText, setPlaceholderText] = useState('(enter) a US city');
 
@@ -19,26 +20,24 @@ export default function Query({ setWeatherData }) {
     if (!notFound) {
       const { name, weather, main } = theWeather;
       getPhotos(`${name}, ${weather[0].description}, day`).then((res) => {
-        console.log('🚀 ~ file: Query.js ~ line 26 ~ getPhotos ~ res', res);
+        // console.log('🚀 ~ file: Query.js ~ line 26 ~ getPhotos ~ res', res);
         const { user, urls, description, id } = res[0] || {};
-        setWeatherData({
-          type: 'updateWeatherData',
-          payload: {
-            user,
-            urls,
-            description,
-            name,
-            id,
-            temp: main.temp,
-            summary: weather[0].description,
-            imgSrc: `http://openweathermap.org/img/wn/${weather[0].icon}.png`,
-          },
+
+        dispatchWeatherData({
+          user,
+          urls,
+          description,
+          name,
+          id,
+          temp: main.temp,
+          summary: weather[0].description,
+          imgSrc: `http://openweathermap.org/img/wn/${weather[0].icon}.png`,
         });
       });
     }
   }
   function handleInputChange(event) {
-    console.log('event: ', event.target.value);
+    // console.log('event: ', event.target.value);
     setLocation(event.target.value);
   }
   return (

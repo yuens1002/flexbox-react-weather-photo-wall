@@ -4,12 +4,8 @@ import './WeatherGrid.css';
 export default function WeatherGrid({ weatherData }) {
   return (
     <div className='grid-row'>
-      {weatherData.map((photo, i) => (
-        <WeatherCard
-          key={photo.id + i}
-          photo={photo}
-          photoCount={weatherData.length}
-        />
+      {weatherData.map((data, i) => (
+        <WeatherCard key={data.id + i} cardData={data} />
       ))}
     </div>
   );
