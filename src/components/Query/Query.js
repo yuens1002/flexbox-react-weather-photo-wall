@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getWeather } from '../../API/openWeather';
 import { getPhotos } from '../../API/unsplashAPI';
+import { getGeoLocation } from '../../API/openGEOcode';
 import './Query.css';
 
 export default function Query({ dispatchWeatherData }) {
@@ -17,8 +18,23 @@ export default function Query({ dispatchWeatherData }) {
 
     const notFound = Object.keys(theWeather).length === 0;
     notFound && setPlaceholderText('sorry, nothing found!');
+
     if (!notFound) {
-      const { name, weather, main } = theWeather;
+      const {
+        name,
+        weather,
+        main,
+        coord: { lat, lon: lng },
+      } = theWeather;
+
+      const geoData = await getGeoLocation({ lat, lng });
+
+      const { adminArea3: state } = geoData.results[0].locations[0];
+      console.log(
+        '🚀 ~ file: Query.js ~ line 33 ~ handleSubmit ~ state',
+        state
+      );
+
       getPhotos(`${name}, ${weather[0].description}, day`).then((res) => {
         // console.log('🚀 ~ file: Query.js ~ line 26 ~ getPhotos ~ res', res);
         const { user, urls, description, id } = res[0] || {};
@@ -29,6 +45,7 @@ export default function Query({ dispatchWeatherData }) {
           description,
           name,
           id,
+          state,
           temp: main.temp,
           summary: weather[0].description,
           imgSrc: `http://openweathermap.org/img/wn/${weather[0].icon}.png`,

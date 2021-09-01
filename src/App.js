@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback } from 'react';
+import { useEffect, useReducer } from 'react';
 import './App.css';
 import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
@@ -61,9 +61,9 @@ function App() {
   const [{ weatherData, containerStyle, image, bgStyle }, dispatch] =
     useReducer(reducer, initialState);
 
-  const dispatchWeatherData = useCallback((payload) => {
+  const dispatchWeatherData = (payload) => {
     dispatch({ type: 'updateWeatherData', payload });
-  }, []);
+  };
 
   useEffect(() => {
     console.log('inside useEffect getRandom app.vue');
@@ -97,7 +97,7 @@ function App() {
       </div>
       {Object.keys(image.urls).length > 0 && (
         <div className='credits'>
-          <span>phone by </span>
+          <span>photo by </span>
           <a
             target='_blank'
             rel='noreferrer'

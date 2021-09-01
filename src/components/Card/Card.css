@@ -21,6 +21,7 @@
   padding: 8px;
   font-size: 1.6rem;
   font-weight: 300;
+  width: 100%;
 }
 
 .card-body-header {
@@ -30,4 +31,15 @@
 
 .card-body-text-summary {
   text-transform: capitalize;
+}
+
+.card-body-credits {
+  float: right;
+  font-size: 1rem;
+}
+
+.card-body-header::before {
+  content: "";
+  clear: both;
+  display: table;
 }

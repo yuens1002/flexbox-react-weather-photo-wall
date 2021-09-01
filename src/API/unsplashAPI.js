@@ -21,7 +21,7 @@ export function getPhotos(query) {
 
 export function getRandom() {
   return api.photos
-    .getRandom({ query: 'bright background' })
+    .getRandom({ query: 'white background' })
     .then((res) => {
       if (res.type === 'error') {
         throw Error(res.errors[0]);
