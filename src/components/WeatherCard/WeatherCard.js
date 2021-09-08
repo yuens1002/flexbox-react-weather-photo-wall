@@ -1,12 +1,12 @@
 import React, { useReducer, useLayoutEffect, useEffect, useRef } from 'react';
 import Card from '../Card/Card';
 import './WeatherCard.css';
-import { WeatherCardReducer as reducer } from '../../reducers';
+import { WeatherCardReducer } from '../../reducers';
 
 export default function WeatherCard(props) {
   const gridItem = useRef(0);
   const initialState = { cardStyle: {}, cardSize: '', gridItem };
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(WeatherCardReducer, initialState);
 
   // watch for screen resize to update card size
   useLayoutEffect(() => {
@@ -24,7 +24,7 @@ export default function WeatherCard(props) {
   }, [state.cardSize]);
 
   return (
-    <div className='grid-item' ref={gridItem}>
+    <div className="grid-item" ref={gridItem}>
       <Card {...props} cardStyle={state.cardStyle} />
     </div>
   );
