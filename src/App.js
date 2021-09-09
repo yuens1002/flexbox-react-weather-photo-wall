@@ -1,10 +1,9 @@
 import { useEffect, useReducer } from 'react';
-import { useQuery } from 'react-query';
 import './App.css';
 import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
-import { getRandom } from './API/unsplashAPI';
 import { AppReducer } from './reducers';
+import useGetRandomPic from './hooks/useRandomPic';
 
 const initialState = {
   weatherData: [],
@@ -22,13 +21,7 @@ function App() {
   const [{ weatherData, containerStyle, image, bgStyle }, dispatch] =
     useReducer(AppReducer, initialState);
 
-  useQuery('fetchRandomPic', getRandom, {
-    onSuccess: (data) => {
-      const { urls, user } = data.response;
-      dispatch({ type: 'updateImage', payload: { urls, user } });
-      dispatch({ type: 'updateBgStyle' });
-    },
-  });
+  useGetRandomPic({ dispatch });
 
   const dispatchWeatherData = (payload) => {
     dispatch({ type: 'updateWeatherData', payload });

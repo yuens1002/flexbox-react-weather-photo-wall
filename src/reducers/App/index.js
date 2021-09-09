@@ -6,6 +6,10 @@ const defaultStyles = {
 };
 
 function getContainerStyles(weatherDataCount) {
+  console.log(
+    '🚀 ~ file: index.js ~ line 9 ~ getContainerStyles ~ weatherDataCount',
+    weatherDataCount
+  );
   return weatherDataCount ? {} : defaultStyles;
 }
 
@@ -21,7 +25,9 @@ export default function reducer(state, action) {
       console.log('updating container style', state);
       return {
         ...state,
-        containerStyle: getContainerStyles(state.weatherData.length),
+        containerStyle: state.weatherData.length
+          ? state.containerStyles
+          : defaultStyles,
       };
     case 'updateBgStyle':
       console.log('updateByStyle called');
