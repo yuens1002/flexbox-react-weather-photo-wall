@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { getWeather } from '../../API/openWeather';
 import { getPhotos } from '../../API/unsplashAPI';
 import { getGeoLocation } from '../../API/openGEOcode';
 import './Query.css';
 
-export default function Query({ dispatchWeatherData }) {
+export default memo(function Query({ updateWeatherData }) {
   console.log('rendering Query...');
   const [location, setLocation] = useState('');
   const [placeholderText, setPlaceholderText] = useState('(enter) a US city');
+
+  function handleInputChange(event) {
+    setLocation(event.target.value);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -30,16 +34,12 @@ export default function Query({ dispatchWeatherData }) {
       const geoData = await getGeoLocation({ lat, lng });
 
       const { adminArea3: state } = geoData.results[0].locations[0];
-      console.log(
-        '🚀 ~ file: Query.js ~ line 33 ~ handleSubmit ~ state',
-        state
-      );
 
       getPhotos(`${name}, ${weather[0].description}, day`).then((res) => {
-        // console.log('🚀 ~ file: Query.js ~ line 26 ~ getPhotos ~ res', res);
+        // console.log('🚀 ~ file: Query.js ~ line 39 ~ getPhotos ~ res', res);
         const { user, urls, description, id } = res[0] || {};
 
-        dispatchWeatherData({
+        updateWeatherData({
           user,
           urls,
           description,
@@ -53,19 +53,16 @@ export default function Query({ dispatchWeatherData }) {
       });
     }
   }
-  function handleInputChange(event) {
-    // console.log('event: ', event.target.value);
-    setLocation(event.target.value);
-  }
+
   return (
-    <form onSubmit={handleSubmit} className='query' autoComplete='off'>
+    <form onSubmit={handleSubmit} className="query" autoComplete="off">
       <input
         placeholder={placeholderText}
-        className='query-input'
-        type='text'
+        className="query-input"
+        type="text"
         value={location}
         onChange={handleInputChange}
       />
     </form>
   );
-}
+});

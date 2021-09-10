@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useCallback } from 'react';
 import './App.css';
 import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
@@ -23,14 +23,14 @@ function App() {
 
   useGetRandomPic({ dispatch });
 
-  const dispatchWeatherData = (payload) => {
+  const updateWeatherData = useCallback((payload) => {
     dispatch({ type: 'updateWeatherData', payload });
-  };
+  }, []);
 
   useEffect(() => {
-    console.log('inside useEffect dispatch updateContainerStyle', weatherData);
+    // console.log('inside useEffect dispatch updateContainerStyle', weatherData);
     weatherData.length <= 1 && dispatch({ type: 'updateContainerStyle' });
-  }, [weatherData]);
+  }, [weatherData.length]);
 
   return (
     <div className="background" style={bgStyle}>
@@ -38,7 +38,7 @@ function App() {
         <div className="heading">
           <div>The weather in</div>
           <div>
-            <Query dispatchWeatherData={dispatchWeatherData} />
+            <Query updateWeatherData={updateWeatherData} />
           </div>
           <div>is like?</div>
         </div>

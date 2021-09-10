@@ -5,26 +5,26 @@ export default function Card({
   cardStyle,
 }) {
   return (
-    <div className='card' style={cardStyle}>
-      <div className='card-img-frame'>
-        <img className='card-img' src={urls.regular} alt={description} />
+    <div className="card" style={cardStyle}>
+      <div className="card-img-frame">
+        <img className="card-img" src={urls.regular} alt={description} />
       </div>
-      <div className='card-body'>
-        <div className='card-body-credits'>
+      <div className="card-body">
+        <div className="card-body-credits">
           <span>photo by </span>
           <a
-            target='_blank'
-            rel='noreferrer'
+            target="_blank"
+            rel="noreferrer"
             href={`https://unsplash.com/@${user.username}`}
           >
             {user.name}
           </a>
         </div>
-        <div className='card-body-header'>
+        <div className="card-body-header">
           {name}, {state}
         </div>
-        <div className='card-body-text'>
-          <span className='card-body-text-summary'>{summary}</span>, {temp}&deg;
+        <div className="card-body-text">
+          <span className="card-body-text-summary">{summary}</span>, {temp}&deg;
           C
         </div>
       </div>

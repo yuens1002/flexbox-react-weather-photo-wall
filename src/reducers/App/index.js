@@ -5,14 +5,6 @@ const defaultStyles = {
   justifyContent: 'space-around',
 };
 
-function getContainerStyles(weatherDataCount) {
-  console.log(
-    '🚀 ~ file: index.js ~ line 9 ~ getContainerStyles ~ weatherDataCount',
-    weatherDataCount
-  );
-  return weatherDataCount ? {} : defaultStyles;
-}
-
 export default function reducer(state, action) {
   switch (action.type) {
     case 'updateWeatherData':
@@ -22,15 +14,13 @@ export default function reducer(state, action) {
         weatherData: [action.payload, ...state.weatherData],
       };
     case 'updateContainerStyle':
-      console.log('updating container style', state);
+      // console.log('dispatch: updating container style', state);
       return {
         ...state,
-        containerStyle: state.weatherData.length
-          ? state.containerStyles
-          : defaultStyles,
+        containerStyle: state.weatherData.length ? {} : defaultStyles,
       };
     case 'updateBgStyle':
-      console.log('updateByStyle called');
+      // console.log('dispatch: updateBgStyle called');
       return {
         ...state,
         bgStyle: {
