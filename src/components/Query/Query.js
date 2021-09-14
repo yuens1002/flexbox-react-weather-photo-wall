@@ -35,7 +35,7 @@ export default memo(function Query({ updateWeatherData }) {
 
       const { adminArea3: state } = geoData.results[0].locations[0];
 
-      getPhotos(`${name}, ${weather[0].description}, day`).then((res) => {
+      getPhotos(`${name}, ${state} ${weather[0].description}`).then((res) => {
         // console.log('🚀 ~ file: Query.js ~ line 39 ~ getPhotos ~ res', res);
         const { user, urls, description, id } = res[0] || {};
 
@@ -55,11 +55,11 @@ export default memo(function Query({ updateWeatherData }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="query" autoComplete="off">
+    <form onSubmit={handleSubmit} className='query' autoComplete='off'>
       <input
         placeholder={placeholderText}
-        className="query-input"
-        type="text"
+        className='query-input'
+        type='text'
         value={location}
         onChange={handleInputChange}
       />

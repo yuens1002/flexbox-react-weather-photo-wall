@@ -14,6 +14,7 @@ export function getPhotos(query) {
       if (res.type === 'error') {
         throw Error(res.errors[0]);
       }
+      // console.log(res.response.results);
       return res.response.results;
     })
     .catch((e) => console.log(e));
@@ -22,6 +23,6 @@ export function getPhotos(query) {
 export function getRandom() {
   // error handling is being done on the useRandomPic hook
   return api.photos
-    .getRandom({ query: 'white background' })
+    .getRandom({ query: 'dark background' })
     .then((res) => res.response);
 }

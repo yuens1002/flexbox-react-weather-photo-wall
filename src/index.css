@@ -4,6 +4,7 @@
 
 html {
   font-size: 10px;
+  color: rgb(224, 224, 224);
 }
 
 body {
@@ -23,10 +24,14 @@ a:link {
 }
 
 a:visited {
-  color: white;
+  color: rgb(167, 167, 167);
 }
 
 a:hover {
+  background-color: rgba(230, 43, 43, 95);
+}
+
+a:focus {
   background-color: rgba(230, 43, 43, 95);
 }
 
