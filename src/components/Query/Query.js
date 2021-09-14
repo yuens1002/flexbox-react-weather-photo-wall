@@ -55,8 +55,14 @@ export default memo(function Query({ updateWeatherData }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="query" autoComplete="off">
+    <form
+      id="query-form"
+      onSubmit={handleSubmit}
+      className="query"
+      autoComplete="off"
+    >
       <input
+        title="query"
         placeholder={placeholderText}
         className="query-input"
         type="text"

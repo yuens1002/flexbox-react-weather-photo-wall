@@ -33,8 +33,12 @@ function App() {
   }, [weatherData.length]);
 
   return (
-    <div className="background" style={bgStyle}>
-      <div className="container" style={containerStyle}>
+    <div data-testid="background" className="background" style={bgStyle}>
+      <div
+        data-testid="content-container"
+        className="container"
+        style={containerStyle}
+      >
         <div className="heading">
           <div>The weather in</div>
           <div>
@@ -45,7 +49,7 @@ function App() {
         {weatherData.length > 0 && <WeatherGrid weatherData={weatherData} />}
       </div>
       {Object.keys(image.urls).length > 0 && (
-        <div className="credits">
+        <div data-testid="credits" className="credits">
           <span>photo by </span>
           <a
             target="_blank"
