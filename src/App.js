@@ -4,24 +4,31 @@ import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
 import { AppReducer } from './reducers';
 import useGetRandomPic from './hooks/useRandomPic';
+import { getTheme } from './themes/colorPalette';
+import { LIGHT } from './themes/constants';
+import { ThemeProvider } from 'styled-components';
+import Background from './components/Background/Background';
 
 const initialState = {
   weatherData: [],
   containerStyle: {},
+  currentTheme: LIGHT,
   image: {
     urls: {},
     user: {},
   },
   bgStyle: {},
+  theme: getTheme(this.currentTheme),
 };
 
 function App() {
   console.log('rendering app...');
 
-  const [{ weatherData, containerStyle, image, bgStyle }, dispatch] =
+  const [{ weatherData, containerStyle, image, bgStyle, theme }, dispatch] =
     useReducer(AppReducer, initialState);
 
-  useGetRandomPic({ dispatch });
+  // may consider have a data variable from useGetRandomPic for ease of testing
+  const { isError, error } = useGetRandomPic({ dispatch });
 
   const updateWeatherData = useCallback((payload) => {
     dispatch({ type: 'updateWeatherData', payload });
@@ -33,34 +40,35 @@ function App() {
   }, [weatherData.length]);
 
   return (
-    <div data-testid="background" className="background" style={bgStyle}>
-      <div
-        data-testid="content-container"
-        className="container"
-        style={containerStyle}
-      >
-        <div className="heading">
-          <div>The weather in</div>
-          <div>
-            <Query updateWeatherData={updateWeatherData} />
+    <ThemeProvider theme={theme}>
+      <Background style={bgStyle}>
+        <div className="container" style={containerStyle}>
+          <div className="heading">
+            <div>The weather in</div>
+            <div>
+              <Query updateWeatherData={updateWeatherData} />
+            </div>
+            <div>is like?</div>
           </div>
-          <div>is like?</div>
+          {weatherData.length > 0 && <WeatherGrid weatherData={weatherData} />}
         </div>
-        {weatherData.length > 0 && <WeatherGrid weatherData={weatherData} />}
-      </div>
-      {Object.keys(image.urls).length > 0 && (
-        <div data-testid="credits" className="credits">
-          <span>photo by </span>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`https://unsplash.com/@${image.user.username}`}
-          >
-            {image.user.name}
-          </a>
+        <div className="credits">
+          {isError && <span>{error.message}</span>}
+          {Object.keys(image.urls).length > 0 && (
+            <>
+              <span>photo by </span>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://unsplash.com/@${image.user.username}`}
+              >
+                {image.user.name}
+              </a>
+            </>
+          )}
         </div>
-      )}
-    </div>
+      </Background>
+    </ThemeProvider>
   );
 }
 

@@ -15,7 +15,6 @@ ReactDOM.render(
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,
-
   document.getElementById('root')
 );
 

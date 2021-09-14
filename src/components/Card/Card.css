@@ -1,9 +1,9 @@
 .card {
   display: flex;
   flex-flow: column wrap;
-  background-color: #fff;
+  background-color: rgba(29, 29, 29, 0.65);
   height: 100%;
-  filter: drop-shadow(4px 4px 1rem #8f8f8f);
+  /* filter: drop-shadow(4px 4px 1rem #8f8f8f); */
 }
 
 .card-img {
