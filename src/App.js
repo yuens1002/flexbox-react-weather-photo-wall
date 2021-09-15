@@ -67,7 +67,7 @@ function App() {
             {isError && <span>{error.message}</span>}
             {Object.keys(image.urls).length > 0 && (
               <>
-                <span>photo by </span>
+                <span>BG photo by </span>
                 <a
                   target="_blank"
                   rel="noreferrer"

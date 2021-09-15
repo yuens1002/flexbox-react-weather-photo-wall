@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useRef } from 'react';
 import { getWeather } from '../../API/openWeather';
 import { getPhotos } from '../../API/unsplashAPI';
 import { getGeoLocation } from '../../API/openGEOcode';
@@ -30,24 +30,23 @@ const StyledQ = styled.form`
 
 export default memo(function Query({ updateWeatherData }) {
   console.log('rendering Query...');
-  const [location, setLocation] = useState('');
+  const queryInput = useRef(null);
   const [placeholderText, setPlaceholderText] = useState('(enter) a US city');
-
-  function handleInputChange(event) {
-    setLocation(event.target.value);
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    setPlaceholderText(location);
-    setLocation('');
+    const location = queryInput.current.value.trim();
+    setPlaceholderText('momento...');
 
     const theWeather = (await getWeather(location)) || {};
 
-    const notFound = Object.keys(theWeather).length === 0;
-    notFound && setPlaceholderText('sorry, nothing found!');
+    queryInput.current.value = '';
 
+    const notFound = Object.keys(theWeather).length === 0;
+
+    notFound && setPlaceholderText('city not found!');
     if (!notFound) {
+      setPlaceholderText(location);
       const {
         name,
         weather,
@@ -86,12 +85,11 @@ export default memo(function Query({ updateWeatherData }) {
       autoComplete="off"
     >
       <input
+        ref={queryInput}
         title="query"
         placeholder={placeholderText}
         className="query-input"
         type="text"
-        value={location}
-        onChange={handleInputChange}
       />
     </StyledQ>
   );

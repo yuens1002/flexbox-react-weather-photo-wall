@@ -4,7 +4,7 @@ import { toRGBSpec } from '../../themes/colorPalette';
 const StyledC = styled.div`
   display: flex;
   flex-flow: column wrap;
-  background-color: ${({ theme }) => toRGBSpec(theme.background, 0.90)};
+  background-color: ${({ theme }) => toRGBSpec(theme.background, 0.85)};
   height: 100%;
 
   .card-img {
