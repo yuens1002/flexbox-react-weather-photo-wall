@@ -27,7 +27,7 @@ const colors = {
     placeholder: 0.6,
     link: {
       link: 0.5,
-      visited: 0.5,
+      visited: 0.3,
       hover: 1,
     },
     highlight: {
@@ -38,23 +38,4 @@ const colors = {
   },
 };
 
-function randomHighlight(theme) {
-  const themes = [PRIMARY, SECONDARY, TERTIARY];
-  const max = themes.length - 1;
-  const min = 0;
-  const randomizedNumber = Math.floor(Math.random() * (max - min + 1) + min);
-  return colors[theme].highlight[themes[randomizedNumber]];
-}
-
-export function toRGBSpec(colorArr, transparancy) {
-  return transparancy
-    ? `rgba(${colorArr[0]}, ${colorArr[1]}, ${colorArr[2]}, ${transparancy})`
-    : `rgb(${colorArr[0]}, ${colorArr[1]}, ${colorArr[2]})`;
-}
-
-export function buildTheme(theme) {
-  return {
-    ...colors[theme],
-    highlight: randomHighlight(theme),
-  };
-}
+export default colors;

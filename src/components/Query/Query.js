@@ -3,7 +3,7 @@ import { getWeather } from '../../API/openWeather';
 import { getPhotos } from '../../API/unsplashAPI';
 import { getGeoLocation } from '../../API/openGEOcode';
 import styled from 'styled-components';
-import { toRGBSpec } from '../../themes/colorPalette';
+import { toRGBSpec } from '../../themes';
 
 const StyledQ = styled.form`
   padding: 0 12px;
@@ -36,11 +36,10 @@ export default memo(function Query({ updateWeatherData }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const location = queryInput.current.value.trim();
+    queryInput.current.value = '';
     setPlaceholderText('momento...');
 
     const theWeather = (await getWeather(location)) || {};
-
-    queryInput.current.value = '';
 
     const notFound = Object.keys(theWeather).length === 0;
 

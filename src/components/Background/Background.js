@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { toRGBSpec } from '../../themes/colorPalette';
+import { toRGBSpec } from '../../themes';
 
 const StyledBg = styled.div`
   position: relative;

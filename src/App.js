@@ -4,16 +4,15 @@ import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
 import { AppReducer } from './reducers';
 import useGetRandomPic from './hooks/useRandomPic';
-import { buildTheme } from './themes/colorPalette';
-import { LIGHT } from './themes/constants';
+import { buildTheme, randomTheme } from './themes';
 import { ThemeProvider } from 'styled-components';
 import Background from './components/Background/Background';
 import GlobalStyles from './globalStyles';
+import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 
 const initialState = {
   weatherData: [],
   containerStyle: {},
-  currentTheme: LIGHT,
   image: {
     urls: {},
     user: {},
@@ -21,9 +20,12 @@ const initialState = {
   bgStyle: {},
 };
 
+const randomizedTheme = randomTheme();
+
 const withThemeInitialState = {
   ...initialState,
-  theme: buildTheme(initialState.currentTheme),
+  currentTheme: randomizedTheme,
+  theme: buildTheme(randomizedTheme),
 };
 
 function App() {
@@ -50,7 +52,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <>
         <GlobalStyles />
+
         <Background style={bgStyle}>
+        <ThemeToggle />
           <div className="container" style={containerStyle}>
             <div className="heading">
               <div>The weather in</div>
