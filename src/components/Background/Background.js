@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { toRGBSpec } from '../../themes/colorPalette';
 
 const StyledBg = styled.div`
   position: relative;
@@ -12,14 +13,10 @@ const StyledBg = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: ${(props) => {
-      console.log(props);
-      return props.theme.setup.background;
-    }};
+    background-color: ${(props) => toRGBSpec(props.theme.background, 0.40)};
   }
 `;
 
 export default function Background(props) {
-  console.log(props);
   return <StyledBg {...props}>{props.children}</StyledBg>;
 }

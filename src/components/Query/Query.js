@@ -2,7 +2,31 @@ import { useState, memo } from 'react';
 import { getWeather } from '../../API/openWeather';
 import { getPhotos } from '../../API/unsplashAPI';
 import { getGeoLocation } from '../../API/openGEOcode';
-import './Query.css';
+import styled from 'styled-components';
+import { toRGBSpec } from '../../themes/colorPalette';
+
+const StyledQ = styled.form`
+  padding: 0 12px;
+  display: inline-block;
+  .query-input {
+    font-size: 2rem;
+    text-align: center;
+    font-style: italic;
+    padding: 10px;
+    width: 250px;
+    background-color: ${({ theme }) => toRGBSpec(theme.highlight, 0.8)};
+    border: none;
+    margin: 10px auto;
+    transition: background-color 0.8s ease;
+    :focus {
+      background-color: ${({ theme }) =>
+        toRGBSpec(theme.highlight, theme.link.hover)};
+    }
+    ::placeholder {
+      color: ${({ theme }) => toRGBSpec(theme.color, theme.link.link)};
+    }
+  }
+`;
 
 export default memo(function Query({ updateWeatherData }) {
   console.log('rendering Query...');
@@ -55,7 +79,7 @@ export default memo(function Query({ updateWeatherData }) {
   }
 
   return (
-    <form
+    <StyledQ
       id="query-form"
       onSubmit={handleSubmit}
       className="query"
@@ -69,6 +93,6 @@ export default memo(function Query({ updateWeatherData }) {
         value={location}
         onChange={handleInputChange}
       />
-    </form>
+    </StyledQ>
   );
 });

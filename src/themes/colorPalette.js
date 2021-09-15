@@ -1,40 +1,60 @@
 import { PRIMARY, SECONDARY, TERTIARY, LIGHT, DARK } from './constants';
 
+/**
+ * colors are indicated by an array representating the 3# from rgb
+ * decimals are transparancy levels in a rgba value
+ */
+
 const colors = {
   [LIGHT]: {
-    setup: {
-      color: 'rgb(7, 7, 7)',
-      placeholder: 'rgba(7, 7, 7, 0.40)',
-      link: {
-        active: 'rgb(0, 0, 0)',
-        visited: 'rgb(167, 167, 167)',
-      },
-      background: 'rgba(255, 255, 255, .50)',
+    background: [255, 255, 255],
+    color: [7, 7, 7],
+    placeholder: 0.6,
+    link: {
+      link: 0.5,
+      visited: 0.3,
+      hover: 1,
     },
-    [PRIMARY]: 'rgba(129, 178, 154, 0.50)',
-    [SECONDARY]: 'rgba(230, 43, 43, 0.50)',
-    [TERTIARY]: 'rgba(242, 204, 143, 0.50)',
+    highlight: {
+      [PRIMARY]: [144, 190, 109],
+      [SECONDARY]: [133, 255, 199],
+      [TERTIARY]: [247, 231, 51],
+    },
   },
   [DARK]: {
-    setup: {
-      color: 'rgb(224, 224, 224)',
-      placeholder: 'rgba(224, 224, 224, 0.40)',
-      link: {
-        active: 'rgb(255, 255, 255)',
-        visited: 'rgb(167, 167, 167)',
-      },
+    background: [0, 0, 0],
+    color: [224, 224, 224],
+    placeholder: 0.6,
+    link: {
+      link: 0.5,
+      visited: 0.5,
+      hover: 1,
     },
-    [PRIMARY]: 'rgba(129, 178, 154, 0.50)',
-    [SECONDARY]: 'rgba(64, 188, 216, 0.50)',
-    [TERTIARY]: 'rgba(144, 190, 109, 0.50)',
+    highlight: {
+      [PRIMARY]: [129, 178, 154],
+      [SECONDARY]: [64, 188, 216],
+      [TERTIARY]: [144, 190, 109],
+    },
   },
 };
 
-export function getTheme(theme) {
+function randomHighlight(theme) {
+  const themes = [PRIMARY, SECONDARY, TERTIARY];
+  const max = themes.length - 1;
+  const min = 0;
+  const randomizedNumber = Math.floor(Math.random() * (max - min + 1) + min);
+  return colors[theme].highlight[themes[randomizedNumber]];
+}
+
+export function toRGBSpec(colorArr, transparancy) {
+  return transparancy
+    ? `rgba(${colorArr[0]}, ${colorArr[1]}, ${colorArr[2]}, ${transparancy})`
+    : `rgb(${colorArr[0]}, ${colorArr[1]}, ${colorArr[2]})`;
+}
+
+export function buildTheme(theme) {
   return {
-    setup: colors[theme].setup,
-    [PRIMARY]: colors[theme][PRIMARY],
-    [SECONDARY]: colors[theme][SECONDARY],
-    [TERTIARY]: colors[theme][TERTIARY],
+    ...colors[theme],
+    highlight: randomHighlight(theme),
   };
 }

@@ -4,10 +4,11 @@ import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
 import { AppReducer } from './reducers';
 import useGetRandomPic from './hooks/useRandomPic';
-import { getTheme } from './themes/colorPalette';
+import { buildTheme } from './themes/colorPalette';
 import { LIGHT } from './themes/constants';
 import { ThemeProvider } from 'styled-components';
 import Background from './components/Background/Background';
+import GlobalStyles from './globalStyles';
 
 const initialState = {
   weatherData: [],
@@ -18,17 +19,23 @@ const initialState = {
     user: {},
   },
   bgStyle: {},
-  theme: getTheme(this.currentTheme),
+};
+
+const withThemeInitialState = {
+  ...initialState,
+  theme: buildTheme(initialState.currentTheme),
 };
 
 function App() {
   console.log('rendering app...');
 
-  const [{ weatherData, containerStyle, image, bgStyle, theme }, dispatch] =
-    useReducer(AppReducer, initialState);
+  const [
+    { weatherData, containerStyle, image, bgStyle, theme, currentTheme },
+    dispatch,
+  ] = useReducer(AppReducer, withThemeInitialState);
 
   // may consider have a data variable from useGetRandomPic for ease of testing
-  const { isError, error } = useGetRandomPic({ dispatch });
+  const { isError, error } = useGetRandomPic({ dispatch, currentTheme });
 
   const updateWeatherData = useCallback((payload) => {
     dispatch({ type: 'updateWeatherData', payload });
@@ -41,33 +48,38 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Background style={bgStyle}>
-        <div className="container" style={containerStyle}>
-          <div className="heading">
-            <div>The weather in</div>
-            <div>
-              <Query updateWeatherData={updateWeatherData} />
+      <>
+        <GlobalStyles />
+        <Background style={bgStyle}>
+          <div className="container" style={containerStyle}>
+            <div className="heading">
+              <div>The weather in</div>
+              <div>
+                <Query updateWeatherData={updateWeatherData} />
+              </div>
+              <div>is like?</div>
             </div>
-            <div>is like?</div>
+            {weatherData.length > 0 && (
+              <WeatherGrid weatherData={weatherData} />
+            )}
           </div>
-          {weatherData.length > 0 && <WeatherGrid weatherData={weatherData} />}
-        </div>
-        <div className="credits">
-          {isError && <span>{error.message}</span>}
-          {Object.keys(image.urls).length > 0 && (
-            <>
-              <span>photo by </span>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://unsplash.com/@${image.user.username}`}
-              >
-                {image.user.name}
-              </a>
-            </>
-          )}
-        </div>
-      </Background>
+          <div className="credits">
+            {isError && <span>{error.message}</span>}
+            {Object.keys(image.urls).length > 0 && (
+              <>
+                <span>photo by </span>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://unsplash.com/@${image.user.username}`}
+                >
+                  {image.user.name}
+                </a>
+              </>
+            )}
+          </div>
+        </Background>
+      </>
     </ThemeProvider>
   );
 }

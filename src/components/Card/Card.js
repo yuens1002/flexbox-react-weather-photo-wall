@@ -1,11 +1,57 @@
-import './Card.css';
+import styled from 'styled-components';
+import { toRGBSpec } from '../../themes/colorPalette';
+
+const StyledC = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  background-color: ${({ theme }) => toRGBSpec(theme.background, 0.90)};
+  height: 100%;
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-img-frame {
+    height: 240px;
+    min-width: calc(33% - 6px);
+  }
+
+  .card-body {
+    padding: 8px;
+    font-size: 1.6rem;
+    font-weight: 300;
+    width: 100%;
+  }
+
+  .card-body-header {
+    font-size: 2rem;
+    font-family: 'Pacifico', cursive;
+  }
+
+  .card-body-text-summary {
+    text-transform: capitalize;
+  }
+
+  .card-body-credits {
+    float: right;
+    font-size: 1rem;
+  }
+
+  .card-body-header::before {
+    content: '';
+    clear: both;
+    display: table;
+  }
+`;
 
 export default function Card({
   cardData: { user, urls, description, temp, name, summary, state },
   cardStyle,
 }) {
   return (
-    <div className="card" style={cardStyle}>
+    <StyledC style={cardStyle}>
       <div className="card-img-frame">
         <img className="card-img" src={urls.regular} alt={description} />
       </div>
@@ -28,6 +74,6 @@ export default function Card({
           C
         </div>
       </div>
-    </div>
+    </StyledC>
   );
 }

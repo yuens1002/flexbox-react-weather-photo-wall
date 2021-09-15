@@ -20,9 +20,9 @@ export function getPhotos(query) {
     .catch((e) => console.log(e));
 }
 
-export function getRandom() {
+export function getRandom(currentTheme) {
   // error handling is being done on the useRandomPic hook
   return api.photos
-    .getRandom({ query: 'dark background' })
+    .getRandom({ query: `${currentTheme} background` })
     .then((res) => res.response);
 }

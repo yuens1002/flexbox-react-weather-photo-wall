@@ -30,7 +30,7 @@ describe('App', () => {
       render(<App />);
       await waitFor(
         () => {
-          expect(useGetRandomPic).toHaveBeenCalledTimes(1=);
+          expect(useGetRandomPic).toHaveBeenCalledTimes(1);
         },
         { timeout: 15000 }
       );
