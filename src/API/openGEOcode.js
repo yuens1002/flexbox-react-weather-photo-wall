@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://open.mapquestapi.com/geocoding/v1/reverse?';
+const url = 'https://open.mapquestapi.com/geocoding/v1/reverse?';
 const apiKey = process.env['REACT_APP_OPEN_GEOCODE_KEY'];
 
 export async function getGeoLocation({ lat, lng }) {
