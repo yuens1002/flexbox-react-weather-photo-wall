@@ -1,8 +1,8 @@
-import { PRIMARY, SECONDARY, TERTIARY, LIGHT, DARK } from './constants';
+import { LIGHT, DARK } from './constants';
 import colors from './colorPalette';
 
 function randomHighlight(theme) {
-  const names = [PRIMARY, SECONDARY, TERTIARY];
+  const names = Object.keys(colors[theme].highlight);
   const max = names.length - 1;
   const min = 0;
   const randomizedNumber = Math.floor(Math.random() * (max - min + 1) + min);
