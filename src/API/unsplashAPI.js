@@ -21,6 +21,10 @@ export function getPhotos(query) {
 }
 
 export function getRandom(currentTheme) {
+  console.log(
+    '🚀 ~ file: unsplashAPI.js ~ line 24 ~ getRandom ~ currentTheme',
+    currentTheme
+  );
   // error handling is being done on the useRandomPic hook
   return api.photos
     .getRandom({ query: `${currentTheme} background` })

@@ -2,8 +2,13 @@ import { useQuery } from 'react-query';
 import { getRandom } from '../API/unsplashAPI';
 
 export default function useGetRandomPic({ dispatch, currentTheme }) {
-  const { error, isError } = useQuery(
-    'getRandomPic',
+  console.log(
+    '🚀 ~ file: useRandomPic.js ~ line 5 ~ useGetRandomPic ~ currentTheme',
+    currentTheme
+  );
+  const { error, isError, refetch } = useQuery(
+    // this is too good, wish i had known about this earlier...
+    ['getRandomPic', currentTheme],
     () => getRandom(currentTheme),
     {
       refetchInterval: 180000,
@@ -18,5 +23,5 @@ export default function useGetRandomPic({ dispatch, currentTheme }) {
       },
     }
   );
-  return { error, isError };
+  return { error, isError, refetch };
 }

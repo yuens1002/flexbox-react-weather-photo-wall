@@ -8,7 +8,7 @@
 
 ### future goals
 
-- [ ] user selectable theme color from a random set of color combinations
+- [x] user selectable theme color from a random set of color combinations
 - [x] update background photo at a set interval
 - [ ] allow users to rearrange weather card(s)
 - [ ] delete a weather card

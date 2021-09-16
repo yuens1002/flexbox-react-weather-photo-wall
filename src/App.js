@@ -37,10 +37,21 @@ function App() {
   ] = useReducer(AppReducer, withThemeInitialState);
 
   // may consider have a data variable from useGetRandomPic for ease of testing
-  const { isError, error } = useGetRandomPic({ dispatch, currentTheme });
+  const { isError, error, refetch } = useGetRandomPic({
+    dispatch,
+    currentTheme,
+  });
 
   const updateWeatherData = useCallback((payload) => {
     dispatch({ type: 'updateWeatherData', payload });
+  }, []);
+
+  const updateCurrentTheme = useCallback((payload) => {
+    dispatch({ type: 'updateCurrentTheme', payload });
+  }, []);
+
+  const updateTheme = useCallback(() => {
+    dispatch({ type: 'updateTheme' });
   }, []);
 
   useEffect(() => {
@@ -52,9 +63,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <>
         <GlobalStyles />
-
         <Background style={bgStyle}>
-        <ThemeToggle />
           <div className="container" style={containerStyle}>
             <div className="heading">
               <div>The weather in</div>
@@ -82,6 +91,12 @@ function App() {
               </>
             )}
           </div>
+          <ThemeToggle
+            updateCurrentTheme={updateCurrentTheme}
+            updateTheme={updateTheme}
+            currentTheme={currentTheme}
+            refetchBgImage={refetch}
+          />
         </Background>
       </>
     </ThemeProvider>

@@ -1,5 +1,8 @@
+import { memo } from 'react';
+
 import { toRGBSpec } from '../../themes';
 import styled from 'styled-components';
+import { LIGHT, DARK } from '../../themes/constants';
 
 const StyledThemeT = styled.div`
   position: absolute;
@@ -30,12 +33,39 @@ const StyledThemeT = styled.div`
   }
 `;
 
-export default function ThemeToggle() {
+export default memo(function ThemeToggle({
+  updateCurrentTheme,
+  updateTheme,
+  currentTheme,
+  refetchBgImage,
+}) {
+  const handleThemeToggle = async (theme) => {
+    console.log('handleThemeToggle clicked');
+    if (theme !== currentTheme) {
+      updateCurrentTheme(theme);
+    }
+    updateTheme();
+  };
+
+  const toggleThemeSelection = (theme) => {
+    console.log('theme', theme);
+    console.log('currentTheme', currentTheme);
+    return currentTheme === theme ? ' circle--selected' : '';
+  };
+
   return (
     <StyledThemeT>
       <span>Choose a Theme: </span>
-      <div className="circle circle--dark circle--selected" aria-label="dark theme, hit enter to select" />
-      <div className="circle circle--light" aria-label="light theme, hit enter to select" />
+      <div
+        className={`circle circle--dark${toggleThemeSelection(DARK)}`}
+        aria-label="dark theme, hit enter to select"
+        onClick={() => handleThemeToggle(DARK)}
+      />
+      <div
+        className={`circle circle--light${toggleThemeSelection(LIGHT)}`}
+        aria-label="light theme, hit enter to select"
+        onClick={() => handleThemeToggle(LIGHT)}
+      />
     </StyledThemeT>
   );
-}
+});

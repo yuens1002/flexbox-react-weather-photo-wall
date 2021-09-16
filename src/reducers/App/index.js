@@ -1,3 +1,5 @@
+import { buildTheme } from '../../themes';
+
 const defaultStyles = {
   maxWidth: '100%',
   display: 'flex',
@@ -31,6 +33,10 @@ export default function reducer(state, action) {
     case 'updateImage':
       console.log('updateImage action called');
       return { ...state, image: action.payload };
+    case 'updateCurrentTheme':
+      return { ...state, currentTheme: action.payload };
+    case 'updateTheme':
+      return { ...state, theme: buildTheme(state.currentTheme) };
     default:
       return state;
   }

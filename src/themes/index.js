@@ -2,11 +2,11 @@ import { PRIMARY, SECONDARY, TERTIARY, LIGHT, DARK } from './constants';
 import colors from './colorPalette';
 
 function randomHighlight(theme) {
-  const themes = [PRIMARY, SECONDARY, TERTIARY];
-  const max = themes.length - 1;
+  const names = [PRIMARY, SECONDARY, TERTIARY];
+  const max = names.length - 1;
   const min = 0;
   const randomizedNumber = Math.floor(Math.random() * (max - min + 1) + min);
-  return colors[theme].highlight[themes[randomizedNumber]];
+  return colors[theme].highlight[names[randomizedNumber]];
 }
 
 export function randomTheme() {
