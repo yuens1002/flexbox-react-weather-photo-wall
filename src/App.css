@@ -2,6 +2,7 @@
 
 .container {
   height: 100vh;
+  overflow-y: auto;
   position: relative;
   max-width: 1080px;
   margin: 0 auto;
@@ -11,8 +12,8 @@
 
 .credits {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 12px;
+  right: 12px;
 }
 
 .heading {

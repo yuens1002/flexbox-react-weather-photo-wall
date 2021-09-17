@@ -7,7 +7,7 @@ import { LIGHT, DARK } from '../../themes/constants';
 const StyledThemeT = styled.div`
   position: absolute;
   top: 8px;
-  right: 16px;
+  right: 8px;
   display: flex;
   justifiy-content: space-between;
   width: 124px;
