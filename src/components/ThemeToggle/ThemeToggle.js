@@ -19,22 +19,22 @@ const StyledThemeT = styled.div`
     height: 24px;
     border-radius: 50%;
     margin: 0 0 0 12px;
-    opacity: 1;
+    opacity: 0.8;
     transition: opacity 0.5s ease;
   }
   .circle--dark {
-    background-color: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background-color: rgb(0, 0, 0);
+    border: 2px solid rgba(255, 255, 255, 0.3);
   }
   .circle--light {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgba(0, 0, 0, 0.3);
   }
   .circle--selected {
     border: 8px solid ${({ theme }) => toRGBSpec(theme.highlight)};
   }
   .circle--hovered {
-    opacity: 0.50;
+    opacity: 1;
   }
 `;
 
