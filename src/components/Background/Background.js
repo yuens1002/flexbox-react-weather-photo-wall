@@ -13,7 +13,8 @@ const StyledBg = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: ${(props) => toRGBSpec(props.theme.background, 0.40)};
+    background-color: ${(props) => toRGBSpec(props.theme.background, 0.5)};
+    transition: background-color 1.5s ease;
   }
 `;
 
