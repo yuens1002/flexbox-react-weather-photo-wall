@@ -9,16 +9,16 @@ const StyledThemeT = styled.div`
   top: 8px;
   right: 8px;
   display: flex;
-  justifiy-content: space-between;
-  width: 124px;
+  justify-content: space-between;
   align-items: center;
+  margin-right: 4px;
 
   .circle {
     cursor: pointer;
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    margin: 4px;
+    margin: 0 0 0 12px;
   }
   .circle--dark {
     background-color: rgba(0, 0, 0, 0.8);
@@ -37,7 +37,6 @@ export default memo(function ThemeToggle({
   updateCurrentTheme,
   updateTheme,
   currentTheme,
-  refetchBgImage,
 }) {
   const handleThemeToggle = async (theme) => {
     console.log('handleThemeToggle clicked');
@@ -55,7 +54,7 @@ export default memo(function ThemeToggle({
 
   return (
     <StyledThemeT>
-      <span>Choose a Theme: </span>
+      <span>{'Choose a Theme '}</span>
       <div
         className={`circle circle--dark${toggleThemeSelection(DARK)}`}
         aria-label="dark theme, hit enter to select"
