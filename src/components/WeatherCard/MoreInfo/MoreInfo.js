@@ -12,7 +12,23 @@ const StyledMoreInfo = styled.div`
   height: 100%;
   width: 80%;
   padding: 12px;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
+
+  .forcast-row {
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid ${({ theme }) => toRGBSpec(theme.color, 0.15)};
+    & div {
+      text-align: center;
+      width: 33.3%;
+    }
+  }
+
+  .--bold {
+    font-weight: bold;
+  }
 
   &.--close {
     transform: translateX(0);
@@ -31,7 +47,11 @@ export default memo(function MoreInfo(props) {
   if (!isError && data?.list.length !== forcast.length) {
     if (data) {
       const { list } = data;
-      const f = list?.map(({ dt, temp }) => ({ dt, temp }));
+      const f = list?.map(({ dt, temp, weather }) => ({
+        dt,
+        temp,
+        weather: weather[0],
+      }));
       setForcast(f);
     }
   }
@@ -57,7 +77,7 @@ export default memo(function MoreInfo(props) {
   function getLocalDate(time) {
     const utc = new Date(time * 1000);
     const local = utc.toLocaleDateString(undefined, {
-      weekday: 'long',
+      weekday: 'short',
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',
@@ -70,16 +90,32 @@ export default memo(function MoreInfo(props) {
     // spread {...props} so class(es) can be attached from the parent
     <StyledMoreInfo {...props}>
       <div>3 day forcast for</div>
-      <div>
-        {city}, {state}
+      <div className="--bold">
+        <h2>
+          {city}, {state}
+        </h2>
       </div>
       {isLoading && <div>fetching forcast...</div>}
-      {forcast.length > 0 &&
-        forcast.map((f, i) => (
-          <div key={i}>
-            {getLocalDate(f.dt)}, {f.temp.day}
+      {forcast.length > 0 && (
+        <>
+          <div className="forcast-row --bold">
+            <div>Day, Date</div>
+            <div>min - Max Temp</div>
+            <div>Weather</div>
           </div>
-        ))}
+          {forcast.map((f, i) => (
+            <div key={i}>
+              <div className="forcast-row">
+                <div>{getLocalDate(f.dt)}</div>
+                <div>
+                  {f.temp.min}&deg;C - {f.temp.max}&deg;C
+                </div>
+                <div>{f.weather.description}</div>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </StyledMoreInfo>
   );
 });

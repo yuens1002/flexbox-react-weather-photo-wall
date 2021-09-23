@@ -11,6 +11,10 @@ const GlobalStyles = createGlobalStyle`
   outline-color: ${(props) => toRGBSpec(props.theme.color)};
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Pacifico', cursive; 
+}
+
 html {
   font-size: 10px;
   color: ${(props) => toRGBSpec(props.theme.color)};
