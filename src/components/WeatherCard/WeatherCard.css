@@ -4,17 +4,19 @@
   flex: 1 33.3%;
   position: relative;
   /* 6 + 6 */
-  padding: 6px;
+  margin: 6px;
   box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-@media(max-width: 814px) {
+@media (max-width: 814px) {
   .grid-item {
     flex-basis: 50%;
   }
- }
- @media(max-width: 553px) {
+}
+@media (max-width: 553px) {
   .grid-item {
     flex-basis: 100%;
   }
- }
+}

@@ -9,6 +9,7 @@ const StyledQ = styled.form`
   padding: 0 12px;
   display: inline-block;
   .query-input {
+    color: ${({ theme }) => toRGBSpec(theme.color)};
     font-size: 2rem;
     text-align: center;
     font-style: italic;
@@ -62,6 +63,7 @@ export default memo(function Query({ updateWeatherData }) {
         const { user, urls, description, id } = res[0] || {};
 
         updateWeatherData({
+          coord: theWeather.coord,
           user,
           urls,
           description,

@@ -6,6 +6,11 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
 }
 
+*:focus { 
+  outline: thin dotted;
+  outline-color: ${(props) => toRGBSpec(props.theme.color)};
+}
+
 html {
   font-size: 10px;
   color: ${(props) => toRGBSpec(props.theme.color)};

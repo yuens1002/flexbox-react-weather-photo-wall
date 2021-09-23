@@ -6,7 +6,7 @@ export default function useGetRandomPic({ dispatch, currentTheme }) {
     '🚀 ~ file: useRandomPic.js ~ line 5 ~ useGetRandomPic ~ currentTheme',
     currentTheme
   );
-  const { error, isError, refetch } = useQuery(
+  const { error, isError } = useQuery(
     // this is too good, wish i had known about this earlier...
     ['getRandomPic', currentTheme],
     () => getRandom(currentTheme),
@@ -23,5 +23,5 @@ export default function useGetRandomPic({ dispatch, currentTheme }) {
       },
     }
   );
-  return { error, isError, refetch };
+  return { error, isError };
 }

@@ -11,6 +11,9 @@ export default function reducer(state, action) {
       };
     case 'updateCardStyle':
       return { ...state, cardStyle: getStyles(state.cardSize) };
+    case 'updateIsMoreInfoOpened':
+      console.log('updateIsMoreInfoOpened called');
+      return { ...state, isMoreInfoOpened: action.payload };
     default:
       return state;
   }

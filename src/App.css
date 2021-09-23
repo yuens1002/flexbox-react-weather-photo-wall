@@ -31,3 +31,17 @@
     flex-flow: column wrap;
   }
 }
+/* test */
+.brick {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  background: red;
+  width: 50px;
+  height: 100px;
+  transition: transform-my 1s ease;
+}
+
+.move-brick {
+  transform: translateX(500px);
+}
