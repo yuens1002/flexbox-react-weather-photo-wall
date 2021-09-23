@@ -12,16 +12,15 @@ const StyledMoreInfo = styled.div`
   height: 100%;
   width: 80%;
   padding: 12px;
-  transition: transform 0.5s ease;
+  transition: right, transform 0.5s ease;
 
   .forcast-row {
     font-size: 12px;
     display: flex;
     justify-content: flex-start;
-    padding: 8px 0;
-    border-bottom: 1px solid ${({ theme }) => toRGBSpec(theme.color, 0.15)};
+    padding: 4px 0;
+    border-bottom: 1px solid ${({ theme }) => toRGBSpec(theme.color, 0.1)};
     & div {
-      text-align: center;
       width: 33.3%;
     }
   }
@@ -31,11 +30,12 @@ const StyledMoreInfo = styled.div`
   }
 
   &.--close {
-    transform: translateX(0);
+    right: -80%;
   }
 
   &.--open {
-    transform: translateX(-120%);
+    right: -80%;
+    transform: translateX(-100%);
   }
 `;
 
@@ -99,8 +99,8 @@ export default memo(function MoreInfo(props) {
       {forcast.length > 0 && (
         <>
           <div className="forcast-row --bold">
-            <div>Day, Date</div>
-            <div>min - Max Temp</div>
+            <div>Day / Date</div>
+            <div>Min - Max Temp</div>
             <div>Weather</div>
           </div>
           {forcast.map((f, i) => (

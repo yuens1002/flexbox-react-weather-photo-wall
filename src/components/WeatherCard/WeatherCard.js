@@ -11,7 +11,7 @@ import { WeatherCardReducer } from '../../reducers';
 import MoreInfo from './MoreInfo/MoreInfo';
 
 export default memo(function WeatherCard(props) {
-  console.log('render weather card: ', JSON.stringify(props));
+  // console.log('render weather card: ', JSON.stringify(props));
   const gridItem = useRef(0);
   const initialState = {
     cardStyle: {},
@@ -44,7 +44,7 @@ export default memo(function WeatherCard(props) {
   }
 
   function handleClassToggle() {
-    console.log('handleClassToggle called');
+    // console.log('handleClassToggle called');
     return state.isMoreInfoOpened ? '--open' : '--close';
   }
 
