@@ -1,12 +1,21 @@
 import { LIGHT, DARK } from './constants';
 import colors from './colorPalette';
 
-function randomHighlight(theme) {
-  const names = Object.keys(colors[theme].highlight);
-  const max = names.length - 1;
+function randomizeNumber (numArr) {
+  const max = numArr.length - 1;
   const min = 0;
-  const randomizedNumber = Math.floor(Math.random() * (max - min + 1) + min);
-  return colors[theme].highlight[names[randomizedNumber]];
+  return Math.floor(Math.random() * (max - min + 1) + min);
+} 
+
+function randomHighlight(theme, highlightName) {
+  // avoid having the same color as the previous randomized highlight color
+  const names = highlightName
+    ? Object.keys(colors[theme].highlight).filter(
+        (name) => name !== highlightName
+      )
+    : Object.keys(colors[theme].highlight);
+  const hightlightName = names[randomizeNumber(names)];
+  return [colors[theme].highlight[hightlightName], hightlightName];
 }
 
 export function randomTheme() {
@@ -23,9 +32,10 @@ export function toRGBSpec(colorArr, transparancy) {
     : `rgb(${colorArr[0]}, ${colorArr[1]}, ${colorArr[2]})`;
 }
 
-export function buildTheme(theme) {
-  return {
+export function buildTheme(theme, highlight) {
+  const [highlightColor, highlightName] = randomHighlight(theme, highlight) 
+  return [{
     ...colors[theme],
-    highlight: randomHighlight(theme),
-  };
+    highlight: highlightColor,
+  }, highlightName];
 }

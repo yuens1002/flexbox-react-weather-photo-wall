@@ -3,7 +3,7 @@ import './App.css';
 import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
 import useGetRandomPic from './hooks/useRandomPic';
-import useAppReducer from './reducers/App'
+import useAppReducer from './hooks/useAppReducer'
 import { ThemeProvider } from 'styled-components';
 import Background from './components/Background/Background';
 import GlobalStyles from './globalStyles';

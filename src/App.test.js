@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import App from './App';
 import useGetRandomPic from './hooks/useRandomPic';
 import React from 'react';
-import useAppReducer from './reducers/App';
+import useAppReducer from './hooks/useAppReducer';
 
 jest.mock('./hooks/useRandomPic', () => jest.fn());
 

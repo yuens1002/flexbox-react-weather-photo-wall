@@ -19,7 +19,7 @@ export default function useGetRandomPic({ dispatch, currentTheme }) {
         dispatch({ type: 'updateBgStyle' });
       },
       onError: (err) => {
-        console.log('error from useRandomPic hook: ', err);
+        new Error(`useRandomPic hook - ${err}`);
       },
     }
   );

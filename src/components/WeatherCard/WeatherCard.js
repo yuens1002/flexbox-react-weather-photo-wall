@@ -8,7 +8,7 @@ import React, {
 import Card from '../Card/Card';
 import './WeatherCard.css';
 import { WeatherCardReducer } from '../../reducers';
-import MoreInfo from './MoreInfo/MoreInfo';
+import MoreInfo from './Forecast/Forecast';
 
 export default memo(function WeatherCard(props) {
   // console.log('render weather card: ', JSON.stringify(props));

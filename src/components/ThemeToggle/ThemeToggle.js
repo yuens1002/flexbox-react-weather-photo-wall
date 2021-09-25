@@ -45,7 +45,7 @@ export default memo(function ThemeToggle({
 }) {
   const [isDarkThemeHovered, updateIsDarkThemeHovered] = useState(false);
   const [isLightThemeHovered, updateIsLightThemeHovered] = useState(false);
-  const handleThemeToggle = async (theme) => {
+  const handleThemeToggle = (theme) => {
     if (theme !== currentTheme) {
       updateCurrentTheme(theme);
     }
@@ -55,7 +55,7 @@ export default memo(function ThemeToggle({
   const applySelectedClass = (theme) => {
     return currentTheme === theme ? ' circle--selected' : '';
   };
-
+  // TODO: use a hover state?
   function changeOpacity(theme) {
     theme === DARK
       ? updateIsDarkThemeHovered((hovered) => !hovered)
