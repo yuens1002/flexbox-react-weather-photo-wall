@@ -4,7 +4,7 @@ uses react, react-query, styled-components for all bells and whisles and theming
 
 ### live site
 
-https://weather-photo-wall.yuens.work
+https://flexbox-react-weather-photo-wall-dozr5.ondigitalocean.app/
 
 ### goals:
 
@@ -17,6 +17,7 @@ https://weather-photo-wall.yuens.work
 - [x] randomized theme at the start of the site
 - [x] user selectable theme from a random set of color combinations
 - [x] update background photo at a set interval
+- [x] fetch weather forcast on demand
 - [ ] > 80% unit test coverage on all components
 - [ ] re-arrange weather card(s)
 - [ ] delete a weather card

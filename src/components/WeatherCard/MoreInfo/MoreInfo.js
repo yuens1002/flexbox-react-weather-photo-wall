@@ -34,7 +34,8 @@ const StyledMoreInfo = styled.div`
   }
 
   &.--open {
-    right: -80%;
+    /* off by one pixel */
+    right: calc(-80% - 1px);
     transform: translateX(-100%);
   }
 `;

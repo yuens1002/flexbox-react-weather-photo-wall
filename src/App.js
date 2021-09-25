@@ -1,32 +1,13 @@
-import { useEffect, useReducer, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import './App.css';
 import WeatherGrid from './components/WeatherGrid/WeatherGrid';
 import Query from './components/Query/Query';
-import { AppReducer } from './reducers';
 import useGetRandomPic from './hooks/useRandomPic';
-import { buildTheme, randomTheme } from './themes';
+import useAppReducer from './reducers/App'
 import { ThemeProvider } from 'styled-components';
 import Background from './components/Background/Background';
 import GlobalStyles from './globalStyles';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
-
-const initialState = {
-  weatherData: [],
-  containerStyle: {},
-  image: {
-    urls: {},
-    user: {},
-  },
-  bgStyle: {},
-};
-
-const randomizedTheme = randomTheme();
-
-const withThemeInitialState = {
-  ...initialState,
-  currentTheme: randomizedTheme,
-  theme: buildTheme(randomizedTheme),
-};
 
 function App() {
   console.log('rendering app...');
@@ -34,37 +15,37 @@ function App() {
   const [
     { weatherData, containerStyle, image, bgStyle, theme, currentTheme },
     dispatch,
-  ] = useReducer(AppReducer, withThemeInitialState);
+  ] = useAppReducer();
 
   // may consider have a data variable from useGetRandomPic for ease of testing
-  const { isError, error, refetch } = useGetRandomPic({
+  const { isError, error } = useGetRandomPic({
     dispatch,
     currentTheme,
   });
 
   const updateWeatherData = useCallback((payload) => {
     dispatch({ type: 'updateWeatherData', payload });
-  }, []);
+  }, [dispatch]);
 
   const updateCurrentTheme = useCallback((payload) => {
     dispatch({ type: 'updateCurrentTheme', payload });
-  }, []);
+  }, [dispatch]);
 
   const updateTheme = useCallback(() => {
     dispatch({ type: 'updateTheme' });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     // console.log('inside useEffect dispatch updateContainerStyle', weatherData);
     weatherData.length <= 1 && dispatch({ type: 'updateContainerStyle' });
-  }, [weatherData.length]);
+  }, [weatherData.length, dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
       <>
         <GlobalStyles />
         <Background style={bgStyle}>
-          <div className="container" style={containerStyle}>
+          <div data-testid="content-container" className="container" style={containerStyle}>
             <div className="heading">
               <div>The weather in</div>
               <div>
@@ -95,7 +76,6 @@ function App() {
             updateCurrentTheme={updateCurrentTheme}
             updateTheme={updateTheme}
             currentTheme={currentTheme}
-            refetchBgImage={refetch}
           />
         </Background>
       </>

@@ -1,14 +1,18 @@
-import { render, waitFor, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react-hooks';
 import App from './App';
 import useGetRandomPic from './hooks/useRandomPic';
-
-jest.setTimeout(15000);
+import React from 'react';
+import useAppReducer from './reducers/App';
 
 jest.mock('./hooks/useRandomPic', () => jest.fn());
 
 describe('App', () => {
   beforeEach(() => {
-    useGetRandomPic.mockImplementation(() => null);
+    useGetRandomPic.mockImplementation(() => ({
+      error: 'error',
+      isError: false,
+    }));
   });
   describe('on render', () => {
     it('changes the styles of the content container', () => {
@@ -27,13 +31,20 @@ describe('App', () => {
   });
   describe('upon successfully fetching for a background image', () => {
     it('the background is updated with fetched image', async () => {
-      render(<App />);
-      await waitFor(
-        () => {
-          expect(useGetRandomPic).toHaveBeenCalledTimes(1);
-        },
-        { timeout: 15000 }
-      );
+      const urls = { regular: 'https://' };
+      const bgStyle = {
+        backgroundImage: `url(${urls.regular})`,
+        backgroundSize: 'cover',
+      }
+      const { result } = renderHook(useAppReducer);
+      expect(result.current[0].bgStyle).toEqual({});
+      act(() => {
+        const dispatch = result.current[1];
+        dispatch({ type: 'updateImage', payload: { urls } });
+        dispatch({ type: 'updateBgStyle'})
+      });
+
+      expect(result.current[0].bgStyle).toEqual(bgStyle)
     });
     it.todo('the credits are shown');
   });
