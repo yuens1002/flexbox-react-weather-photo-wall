@@ -1,4 +1,4 @@
-import { useState, memo, useRef } from 'react';
+import { useState, memo, useRef, useEffect } from 'react';
 import { getWeather } from '../../API/openWeather';
 import { getPhotos } from '../../API/unsplashAPI';
 import { getGeoLocation } from '../../API/openGEOcode';
@@ -33,6 +33,10 @@ export default memo(function Query({ updateWeatherData }) {
   console.log('rendering Query...');
   const queryInput = useRef(null);
   const [placeholderText, setPlaceholderText] = useState('(enter) a US city');
+
+  useEffect(() => {
+    queryInput.current.focus();
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -91,6 +95,7 @@ export default memo(function Query({ updateWeatherData }) {
         placeholder={placeholderText}
         className="query-input"
         type="text"
+        onMouseOver={(e) => e.target.focus()}
       />
     </StyledQ>
   );
